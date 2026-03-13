@@ -23,7 +23,7 @@ export default function InfoOrari() {
       {/* Photo strip */}
       <div style={{ height: '380px', position: 'relative', overflow: 'hidden' }} className="img-zoom">
         <Image
-          src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=1600&q=85&auto=format&fit=crop"
+          src="/hero-balzer.jpeg"
           alt="Bergamo Città Alta"
           fill
           style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
