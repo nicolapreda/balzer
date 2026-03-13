@@ -1,194 +1,183 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 
-const MOMENTS = [
+const CARDS = [
   {
     id: 'colazione',
     label: 'Colazione',
-    title: 'Il mattino\nha l\'oro in bocca.',
-    desc: 'Cornetti ancora caldi, pasticceria fresca, caffè di qualità superiore. La colazione da Balzer è un rito quotidiano per migliaia di bergamaschi.',
+    num: '01',
+    title: 'Il mattino\ncomincia qui.',
+    desc: 'Cornetti ancora caldi, pasticceria fresca, caffè d\'eccellenza. La colazione da Balzer è un rito per migliaia di bergamaschi.',
     time: '7:00 – 11:00',
-    accent: '#f7f3eb',
-    bg: 'var(--balzer-blue)',
-    textColor: 'white',
+    img: '/balzer-dolci2.jpg',
+    color: 'var(--balzer-blue)',
+    size: 'tall',
   },
   {
     id: 'pasticceria',
     label: 'Pasticceria',
+    num: '02',
     title: 'Dolci\nd\'autore.',
-    desc: 'La nostra pasticceria artigianale è il cuore pulsante di Balzer. Dalla celebre Torta Donizetti ai mignon stagionali, ogni creazione è un omaggio alla tradizione bergamasca.',
+    desc: 'La celebre Torta Donizetti, i mignon stagionali, le crostate. Ogni creazione è un omaggio alla tradizione bergamasca.',
     time: '7:00 – chiusura',
-    accent: 'var(--balzer-blue)',
-    bg: 'var(--ivory)',
-    textColor: 'var(--text-dark)',
+    img: '/balzer-dolci1.jpg',
+    color: 'var(--terracotta)',
+    size: 'wide',
   },
   {
     id: 'pranzo',
     label: 'Pranzo',
+    num: '03',
     title: 'Cucina del\nterritorio.',
-    desc: 'Piatti che raccontano Bergamo e la Lombardia, con ingredienti selezionati e una cura maniacale per la stagionalità. Un pranzo che vale il viaggio.',
+    desc: 'Piatti che raccontano Bergamo con ingredienti selezionati e cura maniacale per la stagionalità.',
     time: '12:00 – 15:00',
-    accent: 'var(--ivory)',
-    bg: 'var(--balzer-blue-deep)',
-    textColor: 'white',
+    img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85&auto=format&fit=crop',
+    color: 'var(--balzer-blue-deep)',
+    size: 'medium',
   },
   {
     id: 'aperitivo',
     label: 'Aperitivo',
-    title: 'L\'ora\ndell\'aperitivo.',
-    desc: 'Quando il pomeriggio sfuma nella sera, Balzer si anima. Cocktail di qualità, bollicine, e uno spritz perfetto sotto i Portici del Sentierone.',
+    num: '04',
+    title: 'L\'ora più\nattesa.',
+    desc: 'Spritz perfetto, bollicine, cocktail classici. Il pomeriggio sfuma nella sera sotto i Portici.',
     time: '17:00 – 21:00',
-    accent: 'var(--balzer-blue)',
-    bg: 'var(--ivory)',
-    textColor: 'var(--text-dark)',
+    img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&q=85&auto=format&fit=crop',
+    color: 'var(--terracotta)',
+    size: 'wide',
   },
   {
     id: 'cocktail',
-    label: 'Cocktail & Sera',
+    label: 'Cocktail',
+    num: '05',
     title: 'La notte\ndi Bergamo.',
-    desc: 'I nostri barman creano cocktail classici e signature drinks con un\'attenzione sartoriale agli ingredienti. Il posto giusto per concludere la serata con stile.',
+    desc: 'Signature drinks e grandi classici preparati con cura sartoriale. Il posto giusto per finire in bellezza.',
     time: '21:00 – chiusura',
-    accent: 'var(--ivory)',
-    bg: 'var(--balzer-blue)',
-    textColor: 'white',
+    img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=900&q=85&auto=format&fit=crop',
+    color: 'var(--balzer-blue)',
+    size: 'tall',
   },
 ];
 
-function MomentCard({ m, index }: { m: typeof MOMENTS[0]; index: number }) {
+function Card({ card, index }: { card: typeof CARDS[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-
-  const isEven = index % 2 === 0;
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="img-zoom"
       style={{
-        display: 'grid',
-        gridTemplateColumns: isEven ? '1fr 1fr' : '1fr 1fr',
-        minHeight: '480px',
+        position: 'relative',
         overflow: 'hidden',
+        borderRadius: '4px',
+        cursor: 'default',
+        minHeight: card.size === 'tall' ? '560px' : card.size === 'wide' ? '360px' : '420px',
       }}
-      className="moment-card"
     >
-      {/* Text panel */}
-      <div
-        style={{
-          background: m.bg,
-          padding: 'clamp(3rem, 6vw, 5rem)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          order: isEven ? 0 : 1,
-        }}
-        className="moment-text"
-      >
-        <p className="label-small" style={{ color: m.textColor === 'white' ? 'rgba(255,255,255,0.6)' : 'var(--gold)', marginBottom: '1rem', display: 'block' }}>
-          {m.label}
-        </p>
-        <div style={{ width: '2rem', height: '1px', background: m.textColor === 'white' ? 'rgba(255,255,255,0.3)' : 'var(--gold)', marginBottom: '1.5rem' }} />
-        <h3
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-            fontWeight: 400,
-            color: m.textColor === 'white' ? 'white' : 'var(--balzer-blue)',
-            lineHeight: 1.05,
-            marginBottom: '1.5rem',
-            whiteSpace: 'pre-line',
-          }}
-        >
-          {m.title}
-        </h3>
-        <p style={{
-          fontFamily: 'Manrope, sans-serif',
-          fontSize: '0.82rem',
-          lineHeight: 1.85,
-          color: m.textColor === 'white' ? 'rgba(255,255,255,0.65)' : 'var(--text-mid)',
-          maxWidth: '340px',
-          marginBottom: '2rem',
-        }}>
-          {m.desc}
-        </p>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.75rem',
-        }}>
-          <div style={{ width: '2rem', height: '1px', background: m.textColor === 'white' ? 'rgba(255,255,255,0.3)' : 'var(--stone-mid)' }} />
+      {/* Background image */}
+      <Image
+        src={card.img}
+        alt={card.label}
+        fill
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+
+      {/* Gradient */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(to top, rgba(20,28,44,0.94) 0%, rgba(20,28,44,0.4) 55%, rgba(20,28,44,0.08) 100%)',
+        zIndex: 1,
+      }} />
+
+      {/* Color accent bar */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: 0,
+        width: '3px',
+        height: '100%',
+        background: card.color,
+        zIndex: 2,
+      }} />
+
+      {/* Content */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 3,
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}>
+        {/* Top */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <span style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: '0.65rem',
-            fontWeight: 600,
-            letterSpacing: '0.1em',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
+            fontSize: '0.6rem',
+            fontWeight: 700,
+            letterSpacing: '0.2em',
             textTransform: 'uppercase',
-            color: m.textColor === 'white' ? 'rgba(255,255,255,0.45)' : 'var(--text-light)',
+            color: 'rgba(255,255,255,0.5)',
+            background: 'rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(4px)',
+            padding: '0.3rem 0.7rem',
+            borderRadius: '2px',
           }}>
-            {m.time}
+            {card.label}
+          </span>
+          <span style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: '2.5rem',
+            fontWeight: 800,
+            color: 'rgba(255,255,255,0.12)',
+            lineHeight: 1,
+          }}>
+            {card.num}
           </span>
         </div>
-      </div>
 
-      {/* Visual panel */}
-      <div
-        style={{
-          background: m.accent,
-          order: isEven ? 1 : 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: '300px',
-        }}
-        className="moment-visual"
-      >
-        {/* Abstract visual element */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <div style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(8rem, 18vw, 16rem)',
-            fontWeight: 300,
-            color: m.bg === 'var(--ivory)' ? 'rgba(54,80,113,0.07)' : 'rgba(255,255,255,0.06)',
-            lineHeight: 1,
-            userSelect: 'none',
-            pointerEvents: 'none',
+        {/* Bottom */}
+        <div>
+          <div style={{ width: '2rem', height: '2px', background: card.color, marginBottom: '1rem', borderRadius: '2px' }} />
+          <h3 style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: card.size === 'tall' ? 'clamp(1.8rem, 3vw, 2.5rem)' : 'clamp(1.5rem, 2.5vw, 2rem)',
+            fontWeight: 700,
+            color: 'white',
+            lineHeight: 1.1,
+            marginBottom: '0.875rem',
+            whiteSpace: 'pre-line',
           }}>
-            {m.label.charAt(0)}
-          </div>
-        </div>
-        <div style={{
-          position: 'relative',
-          zIndex: 1,
-          textAlign: 'center',
-        }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            border: `1px solid ${m.bg === 'var(--ivory)' ? 'rgba(54,80,113,0.2)' : 'rgba(255,255,255,0.15)'}`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto',
+            {card.title}
+          </h3>
+          <p style={{
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
+            fontSize: '0.82rem',
+            color: 'rgba(255,255,255,0.62)',
+            lineHeight: 1.7,
+            marginBottom: '1.25rem',
+            maxWidth: '280px',
           }}>
+            {card.desc}
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ width: '1.5rem', height: '1px', background: 'rgba(255,255,255,0.3)' }} />
             <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontSize: '2rem',
-              color: m.bg === 'var(--ivory)' ? 'var(--balzer-blue)' : 'rgba(255,255,255,0.5)',
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontSize: '0.62rem',
+              fontWeight: 600,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.4)',
             }}>
-              {index + 1 < 10 ? `0${index + 1}` : index + 1}
+              {card.time}
             </span>
           </div>
         </div>
@@ -202,56 +191,75 @@ export default function Momenti() {
   const headInView = useInView(headRef, { once: true, margin: '-60px' });
 
   return (
-    <section id="momenti" style={{ background: 'var(--cream)' }}>
+    <section id="momenti" style={{ background: 'var(--cream)', paddingBottom: '7rem' }}>
       {/* Header */}
-      <div className="container-balzer section-padding" style={{ paddingBottom: '4rem' }}>
+      <div className="container-balzer" style={{ paddingTop: '7rem', paddingBottom: '4rem' }}>
         <motion.div
           ref={headRef}
           initial={{ opacity: 0, y: 24 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '3rem', alignItems: 'flex-end' }}
+          className="momenti-header"
         >
           <div>
-            <p className="label-small" style={{ marginBottom: '1rem', display: 'block' }}>Esperienze</p>
-            <div className="divider-gold" style={{ marginBottom: '1.5rem' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <div style={{ width: '2.5rem', height: '2px', background: 'var(--terracotta)', borderRadius: '2px' }} />
+              <span className="label-small">Esperienze</span>
+            </div>
             <h2 style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: 400,
+              fontFamily: 'Playfair Display, serif',
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: 800,
               color: 'var(--balzer-blue)',
               lineHeight: 1.0,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.03em',
             }}>
               Ogni momento
               <br />
-              <em style={{ fontStyle: 'italic', fontWeight: 300, color: 'var(--text-mid)' }}>ha il suo posto.</em>
+              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--text-mid)' }}>ha il suo posto.</em>
             </h2>
           </div>
           <p style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: '0.85rem',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
+            fontSize: '0.95rem',
             lineHeight: 1.8,
             color: 'var(--text-mid)',
-            maxWidth: '340px',
+            maxWidth: '320px',
           }}>
-            Dalla colazione mattutina ai cocktail serali, Balzer accompagna ogni momento della giornata con la stessa cura e raffinatezza.
+            Dalla colazione mattutina ai cocktail serali, Balzer accompagna ogni momento con la stessa cura.
           </p>
         </motion.div>
       </div>
 
-      {/* Cards */}
-      <div>
-        {MOMENTS.map((m, i) => (
-          <MomentCard key={m.id} m={m} index={i} />
-        ))}
+      {/* Magazine grid */}
+      <div className="container-balzer">
+        {/* Row 1: tall left + 2 stacked right */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '1rem', marginBottom: '1rem' }} className="momenti-grid-1">
+          <Card card={CARDS[0]} index={0} />
+          <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1rem' }}>
+            <Card card={CARDS[1]} index={1} />
+            <Card card={CARDS[2]} index={2} />
+          </div>
+        </div>
+
+        {/* Row 2: wide left + tall right */}
+        <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: '1rem' }} className="momenti-grid-2">
+          <Card card={CARDS[3]} index={3} />
+          <Card card={CARDS[4]} index={4} />
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="container-balzer" style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
+        <Link href="/menu" className="btn-primary">Esplora il menu completo</Link>
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .moment-card { grid-template-columns: 1fr !important; min-height: auto !important; }
-          .moment-text { order: 0 !important; }
-          .moment-visual { order: 1 !important; min-height: 200px !important; }
+        @media (max-width: 900px) {
+          .momenti-header { grid-template-columns: 1fr !important; }
+          .momenti-grid-1 { grid-template-columns: 1fr !important; }
+          .momenti-grid-2 { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

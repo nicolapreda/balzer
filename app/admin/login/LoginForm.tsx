@@ -41,7 +41,7 @@ export default function LoginForm() {
     background: 'rgba(255,255,255,0.07)',
     border: '1px solid rgba(255,255,255,0.15)',
     color: 'white',
-    fontFamily: 'Manrope, sans-serif',
+    fontFamily: 'Plus Jakarta Sans, sans-serif',
     fontSize: '0.875rem',
     outline: 'none',
     transition: 'border-color 0.2s',
@@ -52,7 +52,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div>
-          <label style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: '0.5rem' }}>
+          <label style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: '0.5rem' }}>
             Email
           </label>
           <input
@@ -67,7 +67,7 @@ export default function LoginForm() {
           />
         </div>
         <div>
-          <label style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: '0.5rem' }}>
+          <label style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', display: 'block', marginBottom: '0.5rem' }}>
             Password
           </label>
           <input
@@ -82,7 +82,7 @@ export default function LoginForm() {
           />
         </div>
         {error && (
-          <p style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.78rem', color: '#e57373', padding: '0.5rem 0' }}>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.78rem', color: '#e57373', padding: '0.5rem 0' }}>
             {error}
           </p>
         )}
@@ -91,9 +91,9 @@ export default function LoginForm() {
           disabled={loading}
           style={{
             padding: '0.95rem',
-            background: 'var(--gold)',
-            color: 'var(--balzer-blue-deep)',
-            fontFamily: 'Manrope, sans-serif',
+            background: 'var(--terracotta)',
+            color: 'white',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
             fontSize: '0.7rem',
             fontWeight: 700,
             letterSpacing: '0.12em',

@@ -18,18 +18,18 @@ export default async function LoginPage() {
       <div style={{ width: '100%', maxWidth: '420px' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{
-            fontFamily: 'Manrope, sans-serif',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
             fontSize: '0.6rem',
             fontWeight: 700,
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
-            color: 'var(--gold)',
+            color: 'var(--terracotta-light)',
             marginBottom: '1rem',
           }}>
             Area riservata
           </p>
           <h1 style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'Playfair Display, serif',
             fontSize: '2.5rem',
             fontWeight: 400,
             color: 'white',

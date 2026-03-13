@@ -1,21 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* ─── CSS Variables ─────────────────────────────────────── */
 :root {
   --balzer-blue:       #365071;
-  --balzer-blue-deep:  #243650;
+  --balzer-blue-deep:  #1e3044;
   --balzer-blue-light: #4a6b90;
-  --ivory:             #f7f3eb;
-  --ivory-warm:        #f0ead8;
-  --cream:             #fcfbf7;
-  --stone:             #e8e2d8;
+  --terracotta:        #c4734a;
+  --terracotta-light:  #d98e6e;
+  --ivory:             #f5efe6;
+  --ivory-warm:        #ede4d4;
+  --cream:             #fdfaf5;
+  --stone:             #e5ddd0;
   --stone-mid:         #c4b9a8;
-  --text-dark:         #1f2530;
+  --text-dark:         #1a2030;
   --text-mid:          #4a5568;
-  --text-light:        #7b8898;
+  --text-light:        #8a929e;
   --gold:              #b8965a;
-  --gold-light:        #d4b07a;
   --white:             #ffffff;
 }
 
@@ -26,25 +27,28 @@ html {
 }
 
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   color: var(--text-dark);
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 /* ─── Typography ────────────────────────────────────────── */
-.font-display {
-  font-family: 'Cormorant Garamond', serif;
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ─── Grain Texture ─────────────────────────────────────── */
@@ -54,16 +58,15 @@ body::before {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--balzer-blue); border-radius: 10px; }
 
-/* ─── Selection ─────────────────────────────────────────── */
 ::selection {
   background: var(--balzer-blue);
   color: var(--white);
@@ -71,61 +74,88 @@ body::before {
 
 /* ─── Layout Utils ──────────────────────────────────────── */
 .container-balzer {
-  max-width: 1240px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
 }
 
 .section-padding {
-  padding: 7rem 0;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .section-padding-sm {
-  padding: 4rem 0;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-/* ─── Button Styles ─────────────────────────────────────── */
+/* ─── Buttons ───────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
+  padding: 1rem 2.5rem;
   background: var(--balzer-blue);
   color: var(--white);
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid var(--balzer-blue);
+  border: 1.5px solid var(--balzer-blue);
+  border-radius: 2px;
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
 }
-
 .btn-primary:hover {
   background: var(--balzer-blue-deep);
   border-color: var(--balzer-blue-deep);
+  transform: translateY(-1px);
+}
+
+.btn-terracotta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: var(--terracotta);
+  color: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--terracotta);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-terracotta:hover {
+  background: #b3633c;
+  border-color: #b3633c;
+  transform: translateY(-1px);
 }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
+  padding: 1rem 2.5rem;
   background: transparent;
   color: var(--balzer-blue);
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid var(--balzer-blue);
+  border: 1.5px solid var(--balzer-blue);
+  border-radius: 2px;
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
 }
-
 .btn-outline:hover {
   background: var(--balzer-blue);
   color: var(--white);
@@ -135,30 +165,39 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 2.25rem;
+  padding: 1rem 2.5rem;
   background: transparent;
   color: var(--white);
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.55);
+  border: 1.5px solid rgba(255,255,255,0.55);
+  border-radius: 2px;
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
 }
-
 .btn-outline-white:hover {
   background: var(--white);
   color: var(--balzer-blue);
   border-color: var(--white);
 }
 
-/* ─── Helpers ───────────────────────────────────────────── */
+/* ─── Label / Tag ───────────────────────────────────────── */
 .label-small {
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.6rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.label-small-gold {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -166,9 +205,10 @@ body::before {
 }
 
 .divider-gold {
-  width: 2.5rem;
-  height: 1px;
-  background: var(--gold);
+  width: 3rem;
+  height: 2px;
+  background: var(--terracotta);
+  border-radius: 2px;
 }
 
 /* ─── Marquee ───────────────────────────────────────────── */
@@ -182,14 +222,32 @@ body::before {
   white-space: nowrap;
 }
 
-/* ─── Scroll Progress Bar ───────────────────────────────── */
+/* ─── Scroll Progress ───────────────────────────────────── */
 #scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  height: 2px;
-  background: var(--gold);
+  height: 3px;
+  background: var(--terracotta);
   z-index: 9999;
   transition: width 0.05s linear;
   pointer-events: none;
+}
+
+/* ─── Mobile ────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .container-balzer { padding: 0 1.25rem; }
+  .section-padding { padding-top: 4rem; padding-bottom: 4rem; }
+  .section-padding-sm { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+}
+
+/* ─── Image hover zoom ──────────────────────────────────── */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.6s ease;
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
 }

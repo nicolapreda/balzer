@@ -1,50 +1,34 @@
 export default function Marquee({ dark = false }: { dark?: boolean }) {
   const items = [
-    'Dal 1850',
-    '✦',
-    'Caffetteria',
-    '✦',
-    'Pasticceria',
-    '✦',
-    'Ristorante',
-    '✦',
-    'Bergamo',
-    '✦',
-    'Sentierone',
-    '✦',
-    'Torta Donizetti',
-    '✦',
-    'Aperitivo',
-    '✦',
-    'Polenta e Osei',
-    '✦',
+    'Dal 1850', '◆', 'Caffetteria', '◆', 'Pasticceria', '◆',
+    'Ristorante', '◆', 'Bergamo', '◆', 'Sentierone', '◆',
+    'Torta Donizetti', '◆', 'Aperitivo', '◆', 'Polenta e Osei', '◆',
   ];
 
   const repeated = [...items, ...items];
 
   return (
-    <div
-      style={{
-        overflow: 'hidden',
-        padding: '1.25rem 0',
-        borderTop: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(54,80,113,0.12)'}`,
-        borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(54,80,113,0.12)'}`,
-        background: dark ? 'var(--balzer-blue-deep)' : 'var(--cream)',
-      }}
-    >
+    <div style={{
+      overflow: 'hidden',
+      padding: '1.1rem 0',
+      borderTop: `1px solid ${dark ? 'rgba(255,255,255,0.08)' : 'var(--stone)'}`,
+      borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.08)' : 'var(--stone)'}`,
+      background: dark ? 'var(--balzer-blue-deep)' : 'var(--ivory)',
+    }}>
       <div className="marquee-track">
         {repeated.map((item, i) => (
           <span
             key={i}
             style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '0.62rem',
-              fontWeight: 600,
-              letterSpacing: '0.15em',
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontSize: '0.6rem',
+              fontWeight: 700,
+              letterSpacing: '0.18em',
               textTransform: 'uppercase',
-              color: dark ? 'rgba(255,255,255,0.45)' : 'var(--balzer-blue)',
-              padding: '0 1.75rem',
-              opacity: item === '✦' ? 0.4 : 1,
+              color: item === '◆'
+                ? (dark ? 'rgba(196,115,74,0.5)' : 'var(--terracotta)')
+                : (dark ? 'rgba(255,255,255,0.4)' : 'var(--balzer-blue)'),
+              padding: '0 1.5rem',
             }}
           >
             {item}

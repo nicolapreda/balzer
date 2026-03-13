@@ -69,35 +69,35 @@ export default function CategoriesClient() {
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '0.75rem 0.875rem',
     border: '1px solid var(--stone)', background: 'white',
-    fontFamily: 'Manrope, sans-serif', fontSize: '0.875rem',
+    fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.875rem',
     color: 'var(--text-dark)', outline: 'none', boxSizing: 'border-box',
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--ivory)', fontFamily: 'Manrope, sans-serif' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--ivory)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
       {/* Sidebar */}
       <aside style={{ width: '240px', minHeight: '100vh', background: 'var(--balzer-blue-deep)', padding: '2rem 0', flexShrink: 0 }}>
         <div style={{ padding: '0 1.5rem', marginBottom: '3rem' }}>
-          <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', fontWeight: 400, color: 'white' }}>Balzer 1850</p>
-          <p style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Pannello Admin</p>
+          <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.5rem', fontWeight: 400, color: 'white' }}>Balzer 1850</p>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Pannello Admin</p>
         </div>
         <nav>
           {[{ href: '/admin', label: 'Dashboard', icon: '◈' }, { href: '/admin/categories', label: 'Categorie', icon: '◻' }, { href: '/admin/products', label: 'Prodotti', icon: '◯' }, { href: '/admin/qr', label: 'QR Code', icon: '⬡' }].map((l) => (
-            <Link key={l.href} href={l.href} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.875rem 1.5rem', textDecoration: 'none', background: l.href === '/admin/categories' ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: l.href === '/admin/categories' ? '2px solid var(--gold)' : '2px solid transparent' }}>
+            <Link key={l.href} href={l.href} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.875rem 1.5rem', textDecoration: 'none', background: l.href === '/admin/categories' ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: l.href === '/admin/categories' ? '2px solid var(--terracotta)' : '2px solid transparent' }}>
               <span style={{ fontSize: '0.9rem', opacity: 0.7 }}>{l.icon}</span>
-              <span style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.8rem', fontWeight: l.href === '/admin/categories' ? 600 : 400, color: l.href === '/admin/categories' ? 'white' : 'rgba(255,255,255,0.55)' }}>{l.label}</span>
+              <span style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.8rem', fontWeight: l.href === '/admin/categories' ? 600 : 400, color: l.href === '/admin/categories' ? 'white' : 'rgba(255,255,255,0.55)' }}>{l.label}</span>
             </Link>
           ))}
         </nav>
         <div style={{ padding: '2rem 1.5rem 0' }}>
-          <button onClick={handleLogout} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Esci</button>
+          <button onClick={handleLogout} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Esci</button>
         </div>
       </aside>
 
       <main style={{ flex: 1, padding: '3rem', overflowY: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)' }}>Categorie Menu</h1>
+            <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)' }}>Categorie Menu</h1>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>{categories.length} categorie totali</p>
           </div>
           <button onClick={openNew} className="btn-primary" style={{ fontSize: '0.65rem' }}>+ Nuova categoria</button>
@@ -112,7 +112,7 @@ export default function CategoriesClient() {
               <thead>
                 <tr style={{ background: 'var(--cream)', borderBottom: '1px solid var(--stone)' }}>
                   {['Ordine', 'Nome', 'Slug', 'Prodotti', 'Visibile', 'Azioni'].map((h) => (
-                    <th key={h} style={{ padding: '0.875rem 1rem', textAlign: 'left', fontFamily: 'Manrope, sans-serif', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)' }}>{h}</th>
+                    <th key={h} style={{ padding: '0.875rem 1rem', textAlign: 'left', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -120,7 +120,7 @@ export default function CategoriesClient() {
                 {categories.map((cat) => (
                   <tr key={cat.id} style={{ borderBottom: '1px solid var(--stone)' }}>
                     <td style={{ padding: '1rem', fontSize: '0.82rem', color: 'var(--text-light)' }}>{cat.sortOrder}</td>
-                    <td style={{ padding: '1rem', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.05rem', color: 'var(--text-dark)' }}>{cat.name}</td>
+                    <td style={{ padding: '1rem', fontFamily: 'Playfair Display, serif', fontSize: '1.05rem', color: 'var(--text-dark)' }}>{cat.name}</td>
                     <td style={{ padding: '1rem', fontSize: '0.75rem', color: 'var(--text-light)', fontFamily: 'monospace' }}>{cat.slug}</td>
                     <td style={{ padding: '1rem', fontSize: '0.82rem', color: 'var(--text-mid)' }}>{cat._count?.items ?? 0}</td>
                     <td style={{ padding: '1rem' }}>
@@ -128,8 +128,8 @@ export default function CategoriesClient() {
                     </td>
                     <td style={{ padding: '1rem' }}>
                       <div style={{ display: 'flex', gap: '0.75rem' }}>
-                        <button onClick={() => openEdit(cat)} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.72rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0 }}>Modifica</button>
-                        <button onClick={() => handleDelete(cat.id)} style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.72rem', color: '#e57373', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Elimina</button>
+                        <button onClick={() => openEdit(cat)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0 }}>Modifica</button>
+                        <button onClick={() => handleDelete(cat.id)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: '#e57373', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Elimina</button>
                       </div>
                     </td>
                   </tr>
@@ -144,7 +144,7 @@ export default function CategoriesClient() {
       {showForm && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
           <div style={{ background: 'white', width: '100%', maxWidth: '500px', padding: '2.5rem', position: 'relative' }}>
-            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', color: 'var(--balzer-blue)', marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', color: 'var(--balzer-blue)', marginBottom: '2rem' }}>
               {editing ? 'Modifica categoria' : 'Nuova categoria'}
             </h2>
             <form onSubmit={handleSave}>

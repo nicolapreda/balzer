@@ -31,10 +31,10 @@ function AdminSidebar({ active, onLogout }: { active: string; onLogout: () => vo
     }}>
       {/* Logo */}
       <div style={{ padding: '0 1.5rem', marginBottom: '3rem' }}>
-        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', fontWeight: 400, color: 'white', marginBottom: '0.25rem' }}>
+        <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.5rem', fontWeight: 400, color: 'white', marginBottom: '0.25rem' }}>
           Balzer 1850
         </p>
-        <p style={{ fontFamily: 'Manrope, sans-serif', fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>
+        <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>
           Pannello Admin
         </p>
       </div>
@@ -54,13 +54,13 @@ function AdminSidebar({ active, onLogout }: { active: string; onLogout: () => vo
                 padding: '0.875rem 1.5rem',
                 textDecoration: 'none',
                 background: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
-                borderLeft: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                borderLeft: isActive ? '2px solid var(--terracotta)' : '2px solid transparent',
                 transition: 'all 0.2s',
               }}
             >
               <span style={{ fontSize: '0.9rem', opacity: 0.7 }}>{l.icon}</span>
               <span style={{
-                fontFamily: 'Manrope, sans-serif',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
                 fontSize: '0.8rem',
                 fontWeight: isActive ? 600 : 400,
                 color: isActive ? 'white' : 'rgba(255,255,255,0.55)',
@@ -79,7 +79,7 @@ function AdminSidebar({ active, onLogout }: { active: string; onLogout: () => vo
           target="_blank"
           style={{
             display: 'block',
-            fontFamily: 'Manrope, sans-serif',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
             fontSize: '0.72rem',
             color: 'rgba(255,255,255,0.4)',
             textDecoration: 'none',
@@ -92,7 +92,7 @@ function AdminSidebar({ active, onLogout }: { active: string; onLogout: () => vo
         <button
           onClick={onLogout}
           style={{
-            fontFamily: 'Manrope, sans-serif',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
             fontSize: '0.72rem',
             color: 'rgba(255,255,255,0.4)',
             background: 'none',
@@ -142,12 +142,12 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--ivory)', fontFamily: 'Manrope, sans-serif' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--ivory)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
       <AdminSidebar active="/admin" onLogout={handleLogout} />
 
       <main style={{ flex: 1, padding: '3rem', overflowY: 'auto' }}>
         <div style={{ marginBottom: '2.5rem' }}>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)', marginBottom: '0.5rem' }}>
+          <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)', marginBottom: '0.5rem' }}>
             Dashboard
           </h1>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
               border: '1px solid var(--stone)',
             }}>
               <div style={{ fontSize: '1rem', marginBottom: '0.75rem', opacity: 0.5 }}>{s.icon}</div>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)', lineHeight: 1 }}>
+              <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)', lineHeight: 1 }}>
                 {s.value}
               </div>
               <div style={{ fontSize: '0.72rem', color: 'var(--text-light)', marginTop: '0.5rem', fontWeight: 500 }}>
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
 
         {/* Quick actions */}
         <div style={{ marginBottom: '3rem' }}>
-          <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem', color: 'var(--text-dark)', marginBottom: '1.25rem' }}>
+          <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.5rem', color: 'var(--text-dark)', marginBottom: '1.25rem' }}>
             Azioni rapide
           </h2>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
           gap: '1rem',
         }}>
           <div>
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem', color: 'white', marginBottom: '0.25rem' }}>
+            <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', color: 'white', marginBottom: '0.25rem' }}>
               Menu pubblico attivo
             </p>
             <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.55)' }}>
