@@ -155,7 +155,7 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
           .admin-layout { flex-direction: column; }
           .admin-mobile-header { display: flex !important; }
           .admin-sidebar {
-            position: fixed; top: 0; left: 0; bottom: 0; zIndex: 60;
+            position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
             transform: translateX(-100%);
           }
           .admin-sidebar.open { transform: translateX(0); }
