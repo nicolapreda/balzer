@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+.env.local
+node_modules
+.next
+README.md
+*.md
+!balzer-nextjs-brief.md
+docker-compose.yml
+.DS_Store

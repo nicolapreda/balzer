@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+model MenuCategory {
+  id          Int          @id @default(autoincrement())
+  name        String
+  slug        String       @unique
+  description String?      @db.Text
+  sortOrder   Int          @default(0) @map("sort_order")
+  isVisible   Boolean      @default(true) @map("is_visible")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  items       MenuItem[]
+
+  @@map("menu_categories")
+}
+
+model MenuItem {
+  id          Int          @id @default(autoincrement())
+  categoryId  Int          @map("category_id")
+  category    MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String       @unique
+  description String?      @db.Text
+  price       Decimal?     @db.Decimal(8, 2)
+  imageUrl    String?      @map("image_url")
+  tagsJson    String?      @map("tags_json") @db.Text
+  isAvailable Boolean      @default(true) @map("is_available")
+  sortOrder   Int          @default(0) @map("sort_order")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("menu_items")
+}
+
+model SiteSettings {
+  id               Int      @id @default(autoincrement())
+  siteName         String   @default("Balzer 1850") @map("site_name")
+  tagline          String?
+  address          String?
+  phone            String?
+  email            String?
+  googleMapsUrl    String?  @map("google_maps_url")
+  openingHoursJson String?  @map("opening_hours_json") @db.Text
+  socialLinksJson  String?  @map("social_links_json") @db.Text
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
