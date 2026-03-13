@@ -142,11 +142,7 @@ export default function ProductsClient() {
             </table>
           </div>
         )}
-    </AdminLayout>
-  );
-
-  return (
-    <>
+      {showForm && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', overflowY: 'auto' }}>
           <div style={{ background: 'white', width: '100%', maxWidth: '560px', padding: '2.5rem' }}>
             <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', color: 'var(--balzer-blue)', marginBottom: '2rem' }}>
@@ -200,6 +196,6 @@ export default function ProductsClient() {
           </div>
         </div>
       )}
-    </>
+    </AdminLayout>
   );
 }
