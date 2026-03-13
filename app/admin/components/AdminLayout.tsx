@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -10,10 +11,10 @@ interface AdminLayoutProps {
 }
 
 const SIDEBAR_LINKS = [
-  { href: '/admin', label: 'Dashboard', icon: '◈' },
-  { href: '/admin/categories', label: 'Categorie', icon: '◻' },
-  { href: '/admin/products', label: 'Prodotti', icon: '◯' },
-  { href: '/admin/qr', label: 'QR Code', icon: '⬡' },
+  { href: '/admin',            label: 'Dashboard' },
+  { href: '/admin/categories', label: 'Categorie' },
+  { href: '/admin/products',   label: 'Prodotti' },
+  { href: '/admin/qr',         label: 'QR Code' },
 ];
 
 export default function AdminLayout({ children, active, onLogout }: AdminLayoutProps) {
@@ -21,15 +22,43 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
 
   const SidebarContent = () => (
     <>
-      <div style={{ padding: '0 1.5rem', marginBottom: '3rem' }}>
-        <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.5rem', fontWeight: 400, color: 'white', marginBottom: '0.25rem' }}>
-          Balzer 1850
-        </p>
-        <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>
+      {/* Brand */}
+      <div style={{ padding: '0 1.75rem', marginBottom: '2.5rem' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
+          <Image
+            src="/logo.jpg"
+            alt="Balzer 1850"
+            width={38}
+            height={38}
+            style={{ borderRadius: '5px', objectFit: 'cover', flexShrink: 0 }}
+          />
+          <span style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: '1.15rem',
+            fontWeight: 400,
+            color: 'white',
+            letterSpacing: '0.01em',
+            lineHeight: 1.2,
+          }}>
+            Balzer 1850
+          </span>
+        </Link>
+
+        <div style={{ marginTop: '1.25rem', height: '1px', background: 'rgba(255,255,255,0.08)' }} />
+        <p style={{
+          marginTop: '1rem',
+          fontFamily: 'Plus Jakarta Sans, sans-serif',
+          fontSize: '0.55rem',
+          fontWeight: 700,
+          letterSpacing: '0.16em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.3)',
+        }}>
           Pannello Admin
         </p>
       </div>
 
+      {/* Nav */}
       <nav style={{ flex: 1 }}>
         {SIDEBAR_LINKS.map((l) => {
           const isActive = active === l.href;
@@ -38,23 +67,24 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
+              className="admin-nav-link"
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem',
-                padding: '0.875rem 1.5rem',
+                padding: '0.8rem 1.75rem',
                 textDecoration: 'none',
-                background: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
-                borderLeft: isActive ? '2px solid var(--terracotta)' : '2px solid transparent',
-                transition: 'all 0.2s',
+                background: isActive ? 'rgba(184,150,90,0.12)' : 'transparent',
+                borderLeft: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                transition: 'background 0.15s, border-color 0.15s',
               }}
             >
-              <span style={{ fontSize: '0.9rem', opacity: 0.7 }}>{l.icon}</span>
               <span style={{
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
-                fontSize: '0.8rem',
+                fontSize: '0.78rem',
                 fontWeight: isActive ? 600 : 400,
-                color: isActive ? 'white' : 'rgba(255,255,255,0.55)',
+                letterSpacing: '0.02em',
+                color: isActive ? 'white' : 'rgba(255,255,255,0.5)',
+                transition: 'color 0.15s',
               }}>
                 {l.label}
               </span>
@@ -63,17 +93,21 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
         })}
       </nav>
 
-      <div style={{ padding: '2rem 1.5rem 0' }}>
+      {/* Footer */}
+      <div style={{ padding: '1.5rem 1.75rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <Link
           href="/"
           target="_blank"
           style={{
-            display: 'block',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
             fontFamily: 'Plus Jakarta Sans, sans-serif',
-            fontSize: '0.72rem',
-            color: 'rgba(255,255,255,0.4)',
+            fontSize: '0.7rem',
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.35)',
             textDecoration: 'none',
-            marginBottom: '0.75rem',
+            marginBottom: '0.6rem',
             transition: 'color 0.2s',
           }}
         >
@@ -83,8 +117,9 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
           onClick={onLogout}
           style={{
             fontFamily: 'Plus Jakarta Sans, sans-serif',
-            fontSize: '0.72rem',
-            color: 'rgba(255,255,255,0.4)',
+            fontSize: '0.7rem',
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.35)',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
@@ -99,58 +134,89 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
   );
 
   return (
-    <div className="admin-layout" style={{ display: 'flex', minHeight: '100vh', background: 'var(--ivory)', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div className="admin-layout" style={{
+      display: 'flex',
+      minHeight: '100vh',
+      background: 'var(--cream)',
+      fontFamily: 'Plus Jakarta Sans, sans-serif',
+    }}>
       {/* Mobile Header */}
       <div className="admin-mobile-header" style={{
         display: 'none',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '1rem 1.5rem',
+        padding: '0.875rem 1.25rem',
         background: 'var(--balzer-blue-deep)',
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 50,
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}>
-        <div style={{ color: 'white', fontFamily: 'Playfair Display, serif', fontSize: '1.2rem' }}>Balzer 1850</div>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+          <Image src="/logo.jpg" alt="Balzer" width={30} height={30} style={{ borderRadius: '4px', objectFit: 'cover' }} />
+          <span style={{ color: 'white', fontFamily: 'Playfair Display, serif', fontSize: '1rem' }}>Balzer 1850</span>
+        </Link>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}
+          style={{
+            background: 'none',
+            border: '1px solid rgba(255,255,255,0.2)',
+            color: 'white',
+            width: '34px',
+            height: '34px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.1rem',
+            borderRadius: '3px',
+          }}
         >
-          ☰
+          {menuOpen ? '✕' : '☰'}
         </button>
       </div>
 
-      {/* Sidebar Desktop & Mobile Overlay */}
+      {/* Sidebar */}
       <aside className={`admin-sidebar ${menuOpen ? 'open' : ''}`} style={{
-        width: '240px',
+        width: '220px',
         minHeight: '100vh',
         background: 'var(--balzer-blue-deep)',
         display: 'flex',
         flexDirection: 'column',
-        padding: '2rem 0',
+        padding: '2rem 0 0',
         flexShrink: 0,
-        transition: 'transform 0.3s ease',
+        transition: 'transform 0.25s ease',
       }}>
         <SidebarContent />
       </aside>
 
-      {/* Main Content */}
-      <main className="admin-main" style={{ flex: 1, padding: '3rem', overflowY: 'auto', background: 'var(--ivory)' }}>
+      {/* Main */}
+      <main className="admin-main" style={{
+        flex: 1,
+        padding: '2.5rem 3rem',
+        overflowY: 'auto',
+        background: 'var(--cream)',
+        minWidth: 0,
+      }}>
         {children}
       </main>
 
-      {/* Mobile overlay backdrop */}
+      {/* Mobile overlay */}
       {menuOpen && (
         <div
           className="admin-overlay"
           onClick={() => setMenuOpen(false)}
-          style={{
-            position: 'fixed', inset: 0, zIndex: 40, background: 'rgba(0,0,0,0.5)', display: 'none'
-          }}
+          style={{ position: 'fixed', inset: 0, zIndex: 40, background: 'rgba(0,0,0,0.45)', display: 'none' }}
         />
       )}
 
       <style>{`
+        .admin-nav-link:hover {
+          background: rgba(255,255,255,0.05) !important;
+        }
+        .admin-nav-link:hover span {
+          color: rgba(255,255,255,0.8) !important;
+        }
         @media (max-width: 900px) {
           .admin-layout { flex-direction: column; }
           .admin-mobile-header { display: flex !important; }
@@ -159,8 +225,14 @@ export default function AdminLayout({ children, active, onLogout }: AdminLayoutP
             transform: translateX(-100%);
           }
           .admin-sidebar.open { transform: translateX(0); }
-          .admin-main { padding: 5rem 1.5rem 2rem !important; }
+          .admin-main { padding: 4.5rem 1.25rem 2rem !important; }
           .admin-overlay { display: block !important; }
+        }
+        @media (max-width: 600px) {
+          .admin-modal-outer { padding: 0 !important; align-items: flex-end !important; }
+          .admin-modal-inner { padding: 1.75rem 1.25rem !important; max-height: 95vh; overflow-y: auto; border-radius: 12px 12px 0 0; }
+          .admin-modal-actions { flex-direction: column !important; }
+          .admin-modal-actions button { flex: none !important; width: 100% !important; }
         }
       `}</style>
     </div>

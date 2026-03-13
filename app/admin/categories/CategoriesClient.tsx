@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import AdminLayout from '../components/AdminLayout';
 
 interface Category {
@@ -67,95 +66,92 @@ export default function CategoriesClient() {
     router.push('/admin/login');
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '0.75rem 0.875rem',
-    border: '1px solid var(--stone)', background: 'white',
-    fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.875rem',
-    color: 'var(--text-dark)', outline: 'none', boxSizing: 'border-box',
-  };
-
   return (
     <AdminLayout active="/admin/categories" onLogout={handleLogout}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <div>
-            <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)' }}>Categorie Menu</h1>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>{categories.length} categorie totali</p>
-          </div>
-          <button onClick={openNew} className="btn-primary" style={{ fontSize: '0.65rem' }}>+ Nuova categoria</button>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--stone)' }}>
+        <div>
+          <p className="label-small-gold" style={{ marginBottom: '0.4rem' }}>Menu</p>
+          <h1 style={{ fontSize: '2rem', fontWeight: 400, color: 'var(--balzer-blue)', margin: 0 }}>Categorie</h1>
         </div>
+        <button onClick={openNew} className="btn-primary" style={{ fontSize: '0.62rem' }}>+ Nuova categoria</button>
+      </div>
 
-        {/* Table */}
-        {loading ? (
-          <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>Caricamento…</p>
-        ) : (
-          <div style={{ background: 'white', border: '1px solid var(--stone)', overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
-              <thead>
-                <tr style={{ background: 'var(--cream)', borderBottom: '1px solid var(--stone)' }}>
-                  {['Ordine', 'Nome', 'Slug', 'Prodotti', 'Visibile', 'Azioni'].map((h) => (
-                    <th key={h} style={{ padding: '0.875rem 1rem', textAlign: 'left', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)' }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {categories.map((cat) => (
-                  <tr key={cat.id} style={{ borderBottom: '1px solid var(--stone)' }}>
-                    <td style={{ padding: '1rem', fontSize: '0.82rem', color: 'var(--text-light)' }}>{cat.sortOrder}</td>
-                    <td style={{ padding: '1rem', fontFamily: 'Playfair Display, serif', fontSize: '1.05rem', color: 'var(--text-dark)' }}>{cat.name}</td>
-                    <td style={{ padding: '1rem', fontSize: '0.75rem', color: 'var(--text-light)', fontFamily: 'monospace' }}>{cat.slug}</td>
-                    <td style={{ padding: '1rem', fontSize: '0.82rem', color: 'var(--text-mid)' }}>{cat._count?.items ?? 0}</td>
-                    <td style={{ padding: '1rem' }}>
-                      <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: cat.isVisible ? '#4caf72' : '#e57373' }} />
-                    </td>
-                    <td style={{ padding: '1rem' }}>
-                      <div style={{ display: 'flex', gap: '0.75rem' }}>
-                        <button onClick={() => openEdit(cat)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0 }}>Modifica</button>
-                        <button onClick={() => handleDelete(cat.id)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: '#e57373', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Elimina</button>
-                      </div>
-                    </td>
-                  </tr>
+      {/* Table */}
+      {loading ? (
+        <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>Caricamento…</p>
+      ) : (
+        <div style={{ background: 'white', border: '1px solid var(--stone)', overflowX: 'auto', borderRadius: '2px' }}>
+          <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '560px' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--stone)' }}>
+                {['#', 'Nome', 'Slug', 'Prodotti', 'Visibile', ''].map((h) => (
+                  <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.58rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-light)', background: 'var(--cream)' }}>{h}</th>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((cat) => (
+                <tr key={cat.id} style={{ borderBottom: '1px solid var(--stone)', transition: 'background 0.15s' }}>
+                  <td style={{ padding: '0.9rem 1rem', fontSize: '0.78rem', color: 'var(--text-light)', width: '40px' }}>{cat.sortOrder}</td>
+                  <td style={{ padding: '0.9rem 1rem', fontFamily: 'Playfair Display, serif', fontSize: '1rem', fontWeight: 400, color: 'var(--text-dark)' }}>{cat.name}</td>
+                  <td style={{ padding: '0.9rem 1rem', fontSize: '0.72rem', color: 'var(--text-light)', fontFamily: 'monospace' }}>{cat.slug}</td>
+                  <td style={{ padding: '0.9rem 1rem', fontSize: '0.8rem', color: 'var(--text-mid)', fontWeight: 500 }}>{cat._count?.items ?? 0}</td>
+                  <td style={{ padding: '0.9rem 1rem' }}>
+                    <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: cat.isVisible ? '#5cb87a' : '#e57373' }} />
+                  </td>
+                  <td style={{ padding: '0.9rem 1rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                      <button onClick={() => openEdit(cat)} style={{ fontSize: '0.7rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>Modifica</button>
+                      <button onClick={() => handleDelete(cat.id)} style={{ fontSize: '0.7rem', color: 'var(--terracotta)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>Elimina</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Modal */}
       {showForm && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-          <div style={{ background: 'white', width: '100%', maxWidth: '500px', padding: '2.5rem', position: 'relative' }}>
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', color: 'var(--balzer-blue)', marginBottom: '2rem' }}>
+        <div className="admin-modal-outer" style={{ position: 'fixed', inset: 0, background: 'rgba(20,30,50,0.55)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+          <div className="admin-modal-inner" style={{ background: 'white', width: '100%', maxWidth: '480px', padding: '2.5rem' }}>
+            <p className="label-small-gold" style={{ marginBottom: '0.5rem' }}>Categorie</p>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 400, color: 'var(--balzer-blue)', marginBottom: '1.75rem' }}>
               {editing ? 'Modifica categoria' : 'Nuova categoria'}
             </h2>
             <form onSubmit={handleSave}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Nome *</label>
-                  <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: form.slug || e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') })} style={inputStyle} />
+                  <label className="admin-label">Nome *</label>
+                  <input required className="admin-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: form.slug || e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') })} />
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Slug *</label>
-                  <input required value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} style={{ ...inputStyle, fontFamily: 'monospace', fontSize: '0.8rem' }} />
+                  <label className="admin-label">Slug *</label>
+                  <input required className="admin-input" style={{ fontFamily: 'monospace', fontSize: '0.8rem' }} value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} />
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Descrizione</label>
-                  <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
+                  <label className="admin-label">Descrizione</label>
+                  <textarea className="admin-input" rows={3} style={{ resize: 'vertical' }} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div>
-                    <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Ordine</label>
-                    <input type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} style={inputStyle} />
+                    <label className="admin-label">Ordine</label>
+                    <input type="number" className="admin-input" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '0.1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '0.2rem' }}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                       <input type="checkbox" checked={form.isVisible} onChange={(e) => setForm({ ...form, isVisible: e.target.checked })} />
                       <span style={{ fontSize: '0.8rem', color: 'var(--text-mid)' }}>Visibile</span>
                     </label>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                  <button type="submit" disabled={saving} className="btn-primary" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                <div className="admin-modal-actions" style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+                  <button type="submit" disabled={saving} className="btn-primary" style={{ flex: 1, justifyContent: 'center', fontSize: '0.62rem' }}>
                     {saving ? 'Salvataggio…' : 'Salva'}
                   </button>
-                  <button type="button" onClick={() => setShowForm(false)} className="btn-outline" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                  <button type="button" onClick={() => setShowForm(false)} className="btn-outline" style={{ flex: 1, justifyContent: 'center', fontSize: '0.62rem' }}>
                     Annulla
                   </button>
                 </div>

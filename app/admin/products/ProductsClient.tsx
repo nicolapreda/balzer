@@ -73,121 +73,126 @@ export default function ProductsClient() {
 
   const filtered = filterCat ? items.filter((i) => i.categoryId === filterCat) : items;
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '0.75rem 0.875rem', border: '1px solid var(--stone)',
-    background: 'white', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.875rem',
-    color: 'var(--text-dark)', outline: 'none', boxSizing: 'border-box',
-  };
+  const filterBtn = (active: boolean) => ({
+    fontFamily: 'Plus Jakarta Sans, sans-serif',
+    fontSize: '0.62rem',
+    fontWeight: 600,
+    letterSpacing: '0.06em',
+    padding: '0.35rem 0.875rem',
+    background: active ? 'var(--balzer-blue)' : 'white',
+    color: active ? 'white' : 'var(--text-mid)',
+    border: '1px solid var(--stone)',
+    cursor: 'pointer',
+    borderRadius: '2px',
+    transition: 'background 0.15s, color 0.15s',
+  });
 
   return (
     <AdminLayout active="/admin/products" onLogout={handleLogout}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <div>
-            <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--balzer-blue)' }}>Prodotti</h1>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>{items.length} prodotti totali</p>
-          </div>
-          <button onClick={openNew} className="btn-primary" style={{ fontSize: '0.65rem' }}>+ Nuovo prodotto</button>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--stone)' }}>
+        <div>
+          <p className="label-small-gold" style={{ marginBottom: '0.4rem' }}>Menu</p>
+          <h1 style={{ fontSize: '2rem', fontWeight: 400, color: 'var(--balzer-blue)', margin: 0 }}>Prodotti</h1>
         </div>
+        <button onClick={openNew} className="btn-primary" style={{ fontSize: '0.62rem' }}>+ Nuovo prodotto</button>
+      </div>
 
-        {/* Filter */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-          <button onClick={() => setFilterCat(null)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem', fontWeight: 600, padding: '0.4rem 0.875rem', background: filterCat === null ? 'var(--balzer-blue)' : 'white', color: filterCat === null ? 'white' : 'var(--text-mid)', border: '1px solid var(--stone)', cursor: 'pointer' }}>
-            Tutte
-          </button>
-          {categories.map((c) => (
-            <button key={c.id} onClick={() => setFilterCat(c.id)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.65rem', fontWeight: 600, padding: '0.4rem 0.875rem', background: filterCat === c.id ? 'var(--balzer-blue)' : 'white', color: filterCat === c.id ? 'white' : 'var(--text-mid)', border: '1px solid var(--stone)', cursor: 'pointer' }}>
-              {c.name}
-            </button>
-          ))}
-        </div>
+      {/* Filter */}
+      <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+        <button onClick={() => setFilterCat(null)} style={filterBtn(filterCat === null)}>Tutte</button>
+        {categories.map((c) => (
+          <button key={c.id} onClick={() => setFilterCat(c.id)} style={filterBtn(filterCat === c.id)}>{c.name}</button>
+        ))}
+      </div>
 
-        {loading ? (
-          <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>Caricamento…</p>
-        ) : (
-          <div style={{ background: 'white', border: '1px solid var(--stone)', overflow: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px' }}>
-              <thead>
-                <tr style={{ background: 'var(--cream)', borderBottom: '1px solid var(--stone)' }}>
-                  {['Nome', 'Categoria', 'Prezzo', 'Tags', 'Disponibile', 'Azioni'].map((h) => (
-                    <th key={h} style={{ padding: '0.875rem 1rem', textAlign: 'left', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)' }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((item) => (
-                  <tr key={item.id} style={{ borderBottom: '1px solid var(--stone)' }}>
-                    <td style={{ padding: '0.875rem 1rem', fontFamily: 'Playfair Display, serif', fontSize: '1rem', color: 'var(--text-dark)' }}>
-                      {item.name}
-                      {item.description && <div style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.15rem' }}>{item.description.slice(0, 60)}{item.description.length > 60 ? '…' : ''}</div>}
-                    </td>
-                    <td style={{ padding: '0.875rem 1rem', fontSize: '0.78rem', color: 'var(--text-mid)' }}>{item.category?.name || ''}</td>
-                    <td style={{ padding: '0.875rem 1rem', fontSize: '0.85rem', fontWeight: 500, color: 'var(--balzer-blue)' }}>
-                      {item.price ? `€ ${parseFloat(item.price).toFixed(2)}` : '—'}
-                    </td>
-                    <td style={{ padding: '0.875rem 1rem', fontSize: '0.72rem', color: 'var(--terracotta)' }}>
-                      {item.tagsJson ? JSON.parse(item.tagsJson).join(', ') : '—'}
-                    </td>
-                    <td style={{ padding: '0.875rem 1rem' }}>
-                      <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: item.isAvailable ? '#4caf72' : '#e57373' }} />
-                    </td>
-                    <td style={{ padding: '0.875rem 1rem' }}>
-                      <div style={{ display: 'flex', gap: '0.75rem' }}>
-                        <button onClick={() => openEdit(item)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0 }}>Modifica</button>
-                        <button onClick={() => handleDelete(item.id)} style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.72rem', color: '#e57373', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Elimina</button>
-                      </div>
-                    </td>
-                  </tr>
+      {loading ? (
+        <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>Caricamento…</p>
+      ) : (
+        <div style={{ background: 'white', border: '1px solid var(--stone)', overflow: 'auto', borderRadius: '2px' }}>
+          <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', minWidth: '680px' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--stone)' }}>
+                {['Nome', 'Categoria', 'Prezzo', 'Disponibile', ''].map((h) => (
+                  <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.58rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-light)', background: 'var(--cream)' }}>{h}</th>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((item) => (
+                <tr key={item.id} style={{ borderBottom: '1px solid var(--stone)', transition: 'background 0.15s' }}>
+                  <td style={{ padding: '0.9rem 1rem', fontFamily: 'Playfair Display, serif', fontSize: '0.95rem', fontWeight: 400, color: 'var(--text-dark)' }}>
+                    {item.name}
+                    {item.description && <div style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '0.68rem', color: 'var(--text-light)', marginTop: '0.1rem', fontWeight: 400 }}>{item.description.slice(0, 55)}{item.description.length > 55 ? '…' : ''}</div>}
+                  </td>
+                  <td style={{ padding: '0.9rem 1rem', fontSize: '0.72rem', color: 'var(--text-light)', letterSpacing: '0.02em' }}>{item.category?.name || '—'}</td>
+                  <td style={{ padding: '0.9rem 1rem', fontSize: '0.82rem', fontWeight: 600, color: 'var(--balzer-blue)', fontVariantNumeric: 'tabular-nums' }}>
+                    {item.price ? `€ ${parseFloat(item.price).toFixed(2)}` : '—'}
+                  </td>
+                  <td style={{ padding: '0.9rem 1rem' }}>
+                    <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: item.isAvailable ? '#5cb87a' : '#e57373' }} />
+                  </td>
+                  <td style={{ padding: '0.9rem 1rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                      <button onClick={() => openEdit(item)} style={{ fontSize: '0.7rem', color: 'var(--balzer-blue)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>Modifica</button>
+                      <button onClick={() => handleDelete(item.id)} style={{ fontSize: '0.7rem', color: 'var(--terracotta)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>Elimina</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Modal */}
       {showForm && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', overflowY: 'auto' }}>
-          <div style={{ background: 'white', width: '100%', maxWidth: '560px', padding: '2.5rem' }}>
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', color: 'var(--balzer-blue)', marginBottom: '2rem' }}>
+        <div className="admin-modal-outer" style={{ position: 'fixed', inset: 0, background: 'rgba(20,30,50,0.55)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', overflowY: 'auto' }}>
+          <div className="admin-modal-inner" style={{ background: 'white', width: '100%', maxWidth: '520px', padding: '2.5rem' }}>
+            <p className="label-small-gold" style={{ marginBottom: '0.5rem' }}>Prodotti</p>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 400, color: 'var(--balzer-blue)', marginBottom: '1.75rem' }}>
               {editing ? 'Modifica prodotto' : 'Nuovo prodotto'}
             </h2>
             <form onSubmit={handleSave}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Categoria *</label>
-                  <select required value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })} style={{ ...inputStyle, cursor: 'pointer' }}>
+                  <label className="admin-label">Categoria *</label>
+                  <select required className="admin-input" style={{ cursor: 'pointer' }} value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })}>
                     <option value="">Seleziona…</option>
                     {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Nome *</label>
-                  <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inputStyle} />
+                  <label className="admin-label">Nome *</label>
+                  <input required className="admin-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Descrizione</label>
-                  <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
+                  <label className="admin-label">Descrizione</label>
+                  <textarea className="admin-input" rows={3} style={{ resize: 'vertical' }} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <div>
-                    <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Prezzo (€)</label>
-                    <input type="number" step="0.01" min="0" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} style={inputStyle} placeholder="0.00" />
+                    <label className="admin-label">Prezzo (€)</label>
+                    <input type="number" step="0.01" min="0" className="admin-input" placeholder="0.00" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
                   </div>
                   <div>
-                    <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Ordine</label>
-                    <input type="number" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} style={inputStyle} />
+                    <label className="admin-label">Ordine</label>
+                    <input type="number" className="admin-input" value={form.sortOrder} onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value) || 0 })} />
                   </div>
                 </div>
                 <div>
-                  <label style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-light)', display: 'block', marginBottom: '0.4rem' }}>Tags (JSON array)</label>
-                  <input value={form.tagsJson} onChange={(e) => setForm({ ...form, tagsJson: e.target.value })} style={inputStyle} placeholder='["signature","veg"]' />
+                  <label className="admin-label">Tags (JSON array)</label>
+                  <input className="admin-input" placeholder='["signature","veg"]' value={form.tagsJson} onChange={(e) => setForm({ ...form, tagsJson: e.target.value })} />
                 </div>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={form.isAvailable} onChange={(e) => setForm({ ...form, isAvailable: e.target.checked })} />
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-mid)' }}>Disponibile</span>
                 </label>
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                  <button type="submit" disabled={saving} className="btn-primary" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                <div className="admin-modal-actions" style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+                  <button type="submit" disabled={saving} className="btn-primary" style={{ flex: 1, justifyContent: 'center', fontSize: '0.62rem' }}>
                     {saving ? 'Salvataggio…' : 'Salva'}
                   </button>
-                  <button type="button" onClick={() => setShowForm(false)} className="btn-outline" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                  <button type="button" onClick={() => setShowForm(false)} className="btn-outline" style={{ flex: 1, justifyContent: 'center', fontSize: '0.62rem' }}>
                     Annulla
                   </button>
                 </div>

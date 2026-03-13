@@ -237,6 +237,37 @@ body::before {
   .section-padding-sm { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 }
 
+/* ─── Admin ─────────────────────────────────────────────── */
+.admin-table tr:hover td {
+  background: var(--ivory) !important;
+}
+.admin-input {
+  width: 100%;
+  padding: 0.7rem 0.875rem;
+  border: 1px solid var(--stone);
+  background: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  border-radius: 2px;
+}
+.admin-input:focus {
+  border-color: var(--balzer-blue);
+}
+.admin-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
 /* ─── Image hover zoom ──────────────────────────────────── */
 .img-zoom {
   overflow: hidden;
