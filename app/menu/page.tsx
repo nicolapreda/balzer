@@ -15,63 +15,68 @@ export default function MenuPage() {
     <>
       <Nav />
       <main style={{ minHeight: '100vh', background: 'var(--cream)' }}>
-        {/* Hero */}
-        <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
+        {/* Premium Hero */}
+        <div style={{ position: 'relative', minHeight: '55vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', backgroundColor: 'var(--balzer-blue-deep)' }}>
           <Image
             src="/balzer-dolci4.jpg"
             alt="Pasticceria Balzer 1850"
             fill
             priority
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.85 }}
             sizes="100vw"
           />
-          {/* Dark overlay */}
+          {/* Refined gradient overlay for text readability & Nav contrast */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(to right, rgba(27,42,61,0.95) 0%, rgba(27,42,61,0.75) 55%, rgba(27,42,61,0.35) 100%)',
+            background: 'linear-gradient(to bottom, rgba(30,48,68,0.95) 0%, rgba(30,48,68,0.4) 40%, rgba(30,48,68,0.85) 100%)',
           }} />
-          {/* Navbar spacer + content */}
+          
+          {/* Center Content */}
           <div style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', alignItems: 'center',
-            paddingTop: '72px',
+            position: 'relative',
+            zIndex: 10,
+            textAlign: 'center',
+            padding: '72px 2rem 2rem', // offset for Nav
+            maxWidth: '800px',
+            width: '100%',
           }}>
-            <div className="container-balzer">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                <div style={{ width: '2.5rem', height: '2px', background: 'var(--terracotta)', borderRadius: '2px' }} />
-                <span style={{
-                  fontFamily: 'Plus Jakarta Sans, sans-serif',
-                  fontSize: '0.62rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: 'var(--terracotta-light)',
-                }}>
-                  Balzer 1850 — Bergamo
-                </span>
-              </div>
-              <h1 style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: 'clamp(2.8rem, 6vw, 5rem)',
-                fontWeight: 800,
-                color: 'white',
-                letterSpacing: '-0.025em',
-                lineHeight: 1.0,
-                marginBottom: '1.25rem',
-              }}>
-                Il nostro
-                <br />
-                <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.7)' }}>Menu.</em>
-              </h1>
-              <p style={{
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              <div style={{ width: '2rem', height: '1.5px', background: 'var(--terracotta)', borderRadius: '2px' }} />
+              <span style={{
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
-                fontSize: '0.88rem',
-                color: 'rgba(255,255,255,0.55)',
-                lineHeight: 1.6,
+                fontSize: '0.65rem',
+                fontWeight: 700,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'var(--terracotta-light)',
               }}>
-                Via Portici, Sentierone 41 — Bergamo
-              </p>
+                Balzer 1850 — Bergamo
+              </span>
+              <div style={{ width: '2rem', height: '1.5px', background: 'var(--terracotta)', borderRadius: '2px' }} />
             </div>
+            
+            <h1 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '-0.025em',
+              lineHeight: 1.05,
+              marginBottom: '1.5rem',
+            }}>
+              Il nostro <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--stone-mid)' }}>Menu.</em>
+            </h1>
+            
+            <p style={{
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.7)',
+              lineHeight: 1.6,
+              maxWidth: '400px',
+              margin: '0 auto',
+            }}>
+              Via Portici, Sentierone 41 — Bergamo
+            </p>
           </div>
         </div>
 

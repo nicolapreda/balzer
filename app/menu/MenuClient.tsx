@@ -155,7 +155,7 @@ function CategorySection({ cat, isActive }: { cat: MenuCategory; isActive: boole
   }, [isActive]);
 
   return (
-    <div ref={ref} id={`cat-${cat.id}`} style={{ marginBottom: '4rem' }}>
+    <div ref={ref} id={`cat-${cat.id}`} style={{ marginBottom: '4rem', scrollMarginTop: '160px' }}>
       <div style={{ marginBottom: '2rem' }}>
         <div style={{ width: '2rem', height: '1px', background: 'var(--gold)', marginBottom: '1rem' }} />
         <h2 style={{
